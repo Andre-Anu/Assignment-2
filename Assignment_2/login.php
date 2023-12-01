@@ -3,6 +3,13 @@
 include 'config.php';
 session_start();
 
+// Check if $_SESSION['user_id'] is set
+if (isset($_SESSION['user_id'])) {
+   $user_id = $_SESSION['user_id'];
+} else {
+   $user_id = null;
+}
+
 if(isset($_POST['submit'])){
 
    $email = mysqli_real_escape_string($conn, $_POST['email']);
@@ -24,6 +31,7 @@ if(isset($_POST['submit'])){
 
 <!DOCTYPE html>
 <html lang="en">
+<div class="profile">
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,7 +43,30 @@ if(isset($_POST['submit'])){
 
 </head>
 <body>
-   
+<div class="mini-container">
+    <?php
+    // Check if user is logged in
+    if(isset($_SESSION['user_id'])) {
+        ?>
+        <div class="mini-profile">
+            <?php
+            $select = mysqli_query($conn, "SELECT * FROM `user_form` WHERE id = '$user_id'") or die('query failed');
+            if(mysqli_num_rows($select) > 0){
+                $fetch = mysqli_fetch_assoc($select);
+            }
+            if($fetch['image'] == ''){
+                echo '<img src="images/default-avatar.png">';
+            }else{
+                echo '<img src="uploaded_img/'.$fetch['image'].'">';
+            }
+            ?>
+            <h3><?php echo $fetch['name']; ?></h3>
+            <p>You are <span style="color: green">ONLINE!</span></p>
+        </div>
+        <?php
+    }
+    ?>
+</div>
 <div class="form-container">
 
    <form action="" method="post" enctype="multipart/form-data">

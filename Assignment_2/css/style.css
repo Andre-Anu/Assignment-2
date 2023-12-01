@@ -231,6 +231,34 @@
   margin-top: 10px;
 }
 
+.mini-container {
+  /* min-height: 150px; */
+  background-color: transparent;
+  position: absolute;
+  text-align: center;
+  padding: 5px;
+}
+
+.mini-profile img {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  /* margin-bottom: 5px; */
+}
+
+.mini-container .mini-profile h3 {
+  /* margin: 5px 0; */
+  font-size: 12px;
+  color: var(--black);
+}
+
+.mini-container .mini-profile p {
+  /* margin-top: 20px; */
+  color: var(--black);
+  font-size: 12px;
+}
+
 @media (max-width: 650px) {
   .update-profile form .flex {
     flex-wrap: wrap;
